@@ -38,34 +38,20 @@ import org.apache.commons.csv.CSVRecord;
  */
 abstract class CsvUnmarshaller {
     protected final CSVFormat format;
+    protected final CsvDataFormat dataFormat;
     protected final CsvRecordConverter<?> converter;
 
     private CsvUnmarshaller(CSVFormat format, CsvDataFormat dataFormat) {
         this.format = format;
+        this.dataFormat = dataFormat;
         this.converter = extractConverter(dataFormat);
     }
 
-	// ignio - Change Start
-    protected CSVFormat getNewFormat(CsvDataFormat dataFormat){
-    	CSVFormat _format = dataFormat.getActiveFormat();
-    	
-    	if (dataFormat.isUseMaps() && _format.getHeader() == null) {
-            _format = _format.withHeader();
-        }
-        // If we want to skip the header record it must automatic otherwise it's not working
-        if (_format.getSkipHeaderRecord() && _format.getHeader() == null) {
-            _format = _format.withHeader();
-        }
-        
-        return _format;
-    }
-    
-    protected CsvRecordConverter<?> getNewConverter(CsvDataFormat dataFormat){
-    	return extractConverter(dataFormat);
-    }
-	// ignio - Change End
-
     public static CsvUnmarshaller create(CSVFormat format, CsvDataFormat dataFormat) {
+        // If we want to capture the header record, thus the header must be either fixed or automatic
+        if (dataFormat.isCaptureHeaderRecord() && format.getHeader() == null) {
+            format = format.withHeader();
+        }
         // If we want to use maps, thus the header must be either fixed or automatic
         if ((dataFormat.isUseMaps() || dataFormat.isUseOrderedMaps()) && format.getHeader() == null) {
             format = format.withHeader();
@@ -113,7 +99,7 @@ abstract class CsvUnmarshaller {
             super(format, dataFormat);
         }
 
-// ignio - Change Start
+// csv - Change Start
         @Override
         public Object unmarshal(Exchange exchange, InputStream inputStream) throws IOException {
             CSVFormat _format = format;
@@ -128,12 +114,16 @@ abstract class CsvUnmarshaller {
             
             CSVParser parser = new CSVParser(new InputStreamReader(inputStream, ExchangeHelper.getCharsetName(exchange)), _format);
             try {
+            	if (dataFormat.isCaptureHeaderRecord()) {
+                    exchange.getMessage().setHeader(CsvConstants.HEADER_RECORD, parser.getHeaderNames());
+                }
+                
                 return asList(parser.iterator(), _converter);
             } finally {
                 IOHelper.close(parser);
             }
         }
-// ignio - Change End
+// csv - Change End
 
         private <T> List<T> asList(Iterator<CSVRecord> iterator, CsvRecordConverter<T> converter) {
             List<T> answer = new ArrayList<>();
@@ -154,7 +144,7 @@ abstract class CsvUnmarshaller {
             super(format, dataFormat);
         }
 
-// ignio - Change Start
+// csv - Change Start
         @Override
         public Object unmarshal(Exchange exchange, InputStream inputStream) throws IOException {
             Reader reader = null;
@@ -180,7 +170,7 @@ abstract class CsvUnmarshaller {
             }
         }
     }
-// ignio - Change End
+// csv - Change End
 
     /**
      * This class converts the CSV iterator into the proper result type.
@@ -221,4 +211,24 @@ abstract class CsvUnmarshaller {
         }
     }
     //endregion
+    
+    // csv - Change Start
+    protected CSVFormat getNewFormat(CsvDataFormat dataFormat){
+    	CSVFormat _format = dataFormat.getActiveFormat();
+    	
+    	if (dataFormat.isUseMaps() && _format.getHeader() == null) {
+            _format = _format.withHeader();
+        }
+        // If we want to skip the header record it must automatic otherwise it's not working
+        if (_format.getSkipHeaderRecord() && _format.getHeader() == null) {
+            _format = _format.withHeader();
+        }
+        
+        return _format;
+    }
+    
+    protected CsvRecordConverter<?> getNewConverter(CsvDataFormat dataFormat){
+    	return extractConverter(dataFormat);
+    }
+	// csv - Change End
 }
