@@ -16,13 +16,14 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 
---><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-parent</artifactId>
-        <version>3.4.0</version>
+        <version>3.8.0</version>
         <relativePath>../parent</relativePath>
     </parent>
 
@@ -94,9 +95,11 @@
         <module>camel-amqp</module>
         <module>camel-any23</module>
         <module>camel-apns</module>
+        <module>camel-arangodb</module>
         <module>camel-as2</module>
         <module>camel-asn1</module>
         <module>camel-asterisk</module>
+        <module>camel-atlasmap</module>
         <module>camel-atmos</module>
         <module>camel-atmosphere-websocket</module>
         <module>camel-atom</module>
@@ -127,6 +130,7 @@
         <module>camel-aws2-ec2</module>
         <module>camel-aws2-ecs</module>
         <module>camel-aws2-eks</module>
+        <module>camel-aws2-eventbridge</module>
         <module>camel-aws2-iam</module>
         <module>camel-aws2-kinesis</module>
         <module>camel-aws2-kms</module>
@@ -137,11 +141,14 @@
         <module>camel-aws2-ses</module>
         <module>camel-aws2-sns</module>
         <module>camel-aws2-sqs</module>
+        <module>camel-aws2-sts</module>
         <module>camel-aws2-translate</module>
         <module>camel-aws-xray</module>
         <module>camel-azure</module>
         <module>camel-azure-storage-blob</module>
+        <module>camel-azure-storage-datalake</module>
         <module>camel-azure-storage-queue</module>
+        <module>camel-azure-eventhubs</module>
         <module>camel-barcode</module>
         <module>camel-base64</module>
         <module>camel-bean-validator</module>
@@ -152,6 +159,7 @@
         <module>camel-box</module>
         <module>camel-braintree</module>
         <module>camel-caffeine</module>
+        <module>camel-caffeine-lrucache</module>
         <module>camel-cassandraql</module>
         <module>camel-cbor</module>
         <module>camel-cdi</module>
@@ -167,8 +175,10 @@
         <module>camel-couchdb</module>
         <module>camel-crypto-cms</module>
         <module>camel-crypto</module>
+        <module>camel-csimple-joor</module>
         <module>camel-csv</module>
-		<module>camel-csv-custom</module>
+        <module>camel-csv-custom</module>
+        <module>camel-datasonnet</module>
         <module>camel-debezium-common</module>
         <module>camel-debezium-mongodb</module>
         <module>camel-debezium-mysql</module>
@@ -187,6 +197,7 @@
         <module>camel-elsql</module>
         <module>camel-elytron</module>
         <module>camel-etcd</module>
+        <module>camel-etcd3</module>
         <module>camel-exec</module>
         <module>camel-facebook</module>
         <module>camel-fastjson</module>
@@ -218,8 +229,8 @@
         <module>camel-hbase</module>
         <module>camel-hdfs</module>
         <module>camel-headersmap</module>
-        <module>camel-hipchat</module>
         <module>camel-hl7</module>
+        <module>camel-huaweicloud-smn</module>
         <module>camel-ical</module>
         <module>camel-iec60870</module>
         <module>camel-ignite</module>
@@ -235,8 +246,10 @@
         <module>camel-jbpm</module>
         <module>camel-jcache</module>
         <module>camel-jclouds</module>
+        <module>camel-tracing</module>
         <module>camel-jcr</module>
         <module>camel-jdbc</module>
+        <module>camel-jfr</module>
         <module>camel-jgroups-raft</module>
         <module>camel-jgroups</module>
         <module>camel-jing</module>
@@ -245,19 +258,24 @@
         <module>camel-johnzon</module>
         <module>camel-jolt</module>
         <module>camel-jooq</module>
+        <module>camel-joor</module>
         <module>camel-jpa</module>
         <module>camel-jsch</module>
         <module>camel-jslt</module>
         <module>camel-json-validator</module>
         <module>camel-jsonapi</module>
+        <module>camel-jsonata</module>
+        <module>camel-jsonb</module>
         <module>camel-jsonpath</module>
         <module>camel-jt400</module>
         <module>camel-jta</module>
         <module>camel-kafka</module>
+        <module>camel-kamelet</module>
         <module>camel-kubernetes</module>
         <module>camel-kudu</module>
         <module>camel-ldap</module>
         <module>camel-ldif</module>
+        <module>camel-leveldb-legacy</module>
         <module>camel-leveldb</module>
         <module>camel-lra</module>
         <module>camel-lucene</module>
@@ -272,6 +290,7 @@
         <module>camel-microprofile-metrics</module>
         <module>camel-milo</module>
         <module>camel-mina</module>
+        <module>camel-minio</module>
         <module>camel-mllp</module>
         <module>camel-mongodb-gridfs</module>
         <module>camel-mongodb</module>
@@ -285,13 +304,16 @@
         <module>camel-netty</module>
         <module>camel-nitrite</module>
         <module>camel-nsq</module>
+        <module>camel-oaipmh</module>
         <module>camel-ognl</module>
         <module>camel-olingo2</module>
         <module>camel-olingo4</module>
         <module>camel-openstack</module>
         <module>camel-opentracing</module>
+        <module>camel-opentelemetry</module>
         <module>camel-optaplanner</module>
         <module>camel-paho</module>
+        <module>camel-paho-mqtt5</module>
         <module>camel-pdf</module>
         <module>camel-pg-replication-slot</module>
         <module>camel-pgevent</module>
@@ -307,6 +329,7 @@
         <module>camel-reactive-executor-vertx</module>
         <module>camel-reactive-streams</module>
         <module>camel-reactor</module>
+        <module>camel-redis</module>
         <module>camel-resilience4j</module>
         <module>camel-resteasy</module>
         <module>camel-rest-swagger</module>
@@ -340,6 +363,7 @@
         <module>camel-spring-integration</module>
         <module>camel-spring-javaconfig</module>
         <module>camel-spring-ldap</module>
+        <module>camel-spring-rabbitmq</module>
         <module>camel-spring-redis</module>
         <module>camel-spring-security</module>
         <module>camel-spring-ws</module>
@@ -349,12 +373,14 @@
         <module>camel-stomp</module>
         <module>camel-stream</module>
         <module>camel-stringtemplate</module>
+        <module>camel-stitch</module>
         <module>camel-swagger-java</module>
         <module>camel-openapi-java</module>
         <module>camel-syslog</module>
         <module>camel-tagsoup</module>
         <module>camel-tarfile</module>
         <module>camel-telegram</module>
+        <module>camel-threadpoolfactory-vertx</module>
         <module>camel-thrift</module>
         <module>camel-tika</module>
         <module>camel-twilio</module>
@@ -363,6 +389,9 @@
         <module>camel-univocity-parsers</module>
         <module>camel-velocity</module>
         <module>camel-vertx</module>
+        <module>camel-vertx-http</module>
+        <module>camel-vertx-websocket</module>
+        <module>camel-vertx-kafka</module>
         <module>camel-weather</module>
         <module>camel-web3j</module>
         <module>camel-webhook</module>
@@ -507,6 +536,10 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-format-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

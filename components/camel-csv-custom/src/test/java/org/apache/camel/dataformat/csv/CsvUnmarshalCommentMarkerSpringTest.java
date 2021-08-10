@@ -26,16 +26,20 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CsvUnmarshalTabDelimiterSpringTest extends CamelSpringTestSupport {
+/**
+ * Spring based integration test for the <code>CsvDataFormat</code>
+ */
+public class CsvUnmarshalCommentMarkerSpringTest extends CamelSpringTestSupport {
+
     @EndpointInject("mock:result")
     private MockEndpoint result;
 
     @SuppressWarnings("unchecked")
     @Test
-    void testCsvUnMarshal() throws Exception {
+    void testCsvUnmarshal() throws Exception {
         result.expectedMessageCount(1);
 
-        template.sendBody("direct:start", "123\tCamel in Action\t1\n124\tActiveMQ in Action\t2");
+        template.sendBody("direct:start", "# Cool books list (comment)\n123|Camel in Action|1\n124|ActiveMQ in Action|2");
 
         assertMockEndpointsSatisfied();
 
@@ -49,26 +53,9 @@ public class CsvUnmarshalTabDelimiterSpringTest extends CamelSpringTestSupport {
         assertEquals("2", body.get(1).get(2));
     }
 
-    @SuppressWarnings("unchecked")
-    @Test
-    void testCsvUnMarshalSingleLine() throws Exception {
-        result.expectedMessageCount(1);
-
-        template.sendBody("direct:start", "123\tCamel in Action\t1");
-
-        assertMockEndpointsSatisfied();
-
-        List<List<String>> body = result.getReceivedExchanges().get(0).getIn().getBody(List.class);
-        assertEquals(1, body.size());
-        assertEquals("123", body.get(0).get(0));
-        assertEquals("Camel in Action", body.get(0).get(1));
-        assertEquals("1", body.get(0).get(2));
-    }
-
     @Override
     protected ClassPathXmlApplicationContext createApplicationContext() {
         return new ClassPathXmlApplicationContext(
-                "org/apache/camel/dataformat/csv/CsvUnmarshalTabDelimiterSpringTest-context.xml");
+                "org/apache/camel/dataformat/csv/CsvUnmarshalCommentMarkerSpringTest-context.xml");
     }
-
 }

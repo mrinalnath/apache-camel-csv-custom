@@ -23,14 +23,13 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>components</artifactId>
-        <version>3.4.0</version>
+        <version>3.8.0</version>
     </parent>
 
-	<artifactId>camel-csv-custom</artifactId>
-	<packaging>jar</packaging>
-	<name>Camel :: CSV :: Custom</name>
-	<description>Camel CSV data format support - custom</description>
-
+    <artifactId>camel-csv-custom</artifactId>
+    <packaging>jar</packaging>
+    <name>Camel :: CSV</name>
+    <description>Camel CSV data format support</description>
 
     <properties>
     </properties>
