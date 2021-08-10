@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-parent</artifactId>
-        <version>3.8.0</version>
+        <version>3.7.4</version>
         <relativePath>../parent</relativePath>
     </parent>
 
@@ -146,7 +146,6 @@
         <module>camel-aws-xray</module>
         <module>camel-azure</module>
         <module>camel-azure-storage-blob</module>
-        <module>camel-azure-storage-datalake</module>
         <module>camel-azure-storage-queue</module>
         <module>camel-azure-eventhubs</module>
         <module>camel-barcode</module>
@@ -159,7 +158,6 @@
         <module>camel-box</module>
         <module>camel-braintree</module>
         <module>camel-caffeine</module>
-        <module>camel-caffeine-lrucache</module>
         <module>camel-cassandraql</module>
         <module>camel-cbor</module>
         <module>camel-cdi</module>
@@ -177,7 +175,7 @@
         <module>camel-crypto</module>
         <module>camel-csimple-joor</module>
         <module>camel-csv</module>
-        <module>camel-csv-custom</module>
+		<module>camel-csv-custom</module>
         <module>camel-datasonnet</module>
         <module>camel-debezium-common</module>
         <module>camel-debezium-mongodb</module>
@@ -230,7 +228,6 @@
         <module>camel-hdfs</module>
         <module>camel-headersmap</module>
         <module>camel-hl7</module>
-        <module>camel-huaweicloud-smn</module>
         <module>camel-ical</module>
         <module>camel-iec60870</module>
         <module>camel-ignite</module>
@@ -249,7 +246,6 @@
         <module>camel-tracing</module>
         <module>camel-jcr</module>
         <module>camel-jdbc</module>
-        <module>camel-jfr</module>
         <module>camel-jgroups-raft</module>
         <module>camel-jgroups</module>
         <module>camel-jing</module>
@@ -270,7 +266,6 @@
         <module>camel-jt400</module>
         <module>camel-jta</module>
         <module>camel-kafka</module>
-        <module>camel-kamelet</module>
         <module>camel-kubernetes</module>
         <module>camel-kudu</module>
         <module>camel-ldap</module>
@@ -313,7 +308,6 @@
         <module>camel-opentelemetry</module>
         <module>camel-optaplanner</module>
         <module>camel-paho</module>
-        <module>camel-paho-mqtt5</module>
         <module>camel-pdf</module>
         <module>camel-pg-replication-slot</module>
         <module>camel-pgevent</module>
@@ -363,7 +357,6 @@
         <module>camel-spring-integration</module>
         <module>camel-spring-javaconfig</module>
         <module>camel-spring-ldap</module>
-        <module>camel-spring-rabbitmq</module>
         <module>camel-spring-redis</module>
         <module>camel-spring-security</module>
         <module>camel-spring-ws</module>
@@ -373,7 +366,6 @@
         <module>camel-stomp</module>
         <module>camel-stream</module>
         <module>camel-stringtemplate</module>
-        <module>camel-stitch</module>
         <module>camel-swagger-java</module>
         <module>camel-openapi-java</module>
         <module>camel-syslog</module>

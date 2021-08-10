@@ -45,7 +45,7 @@ abstract class CsvUnmarshaller {
         this.converter = extractConverter(dataFormat);
     }
 
-	// ignio - Change Start
+	// CSV - Change Start
     protected CSVFormat getNewFormat(CsvDataFormat dataFormat){
     	CSVFormat _format = dataFormat.getActiveFormat();
     	
@@ -63,7 +63,7 @@ abstract class CsvUnmarshaller {
     protected CsvRecordConverter<?> getNewConverter(CsvDataFormat dataFormat){
     	return extractConverter(dataFormat);
     }
-	// ignio - Change End
+	// CSV - Change End
 
     public static CsvUnmarshaller create(CSVFormat format, CsvDataFormat dataFormat) {
         // If we want to use maps, thus the header must be either fixed or automatic
@@ -113,7 +113,7 @@ abstract class CsvUnmarshaller {
             super(format, dataFormat);
         }
 
-// ignio - Change Start
+// CSV - Change Start
         @Override
         public Object unmarshal(Exchange exchange, InputStream inputStream) throws IOException {
             CSVFormat _format = format;
@@ -133,7 +133,7 @@ abstract class CsvUnmarshaller {
                 IOHelper.close(parser);
             }
         }
-// ignio - Change End
+// CSV - Change End
 
         private <T> List<T> asList(Iterator<CSVRecord> iterator, CsvRecordConverter<T> converter) {
             List<T> answer = new ArrayList<>();
@@ -154,7 +154,7 @@ abstract class CsvUnmarshaller {
             super(format, dataFormat);
         }
 
-// ignio - Change Start
+// CSV - Change Start
         @Override
         public Object unmarshal(Exchange exchange, InputStream inputStream) throws IOException {
             Reader reader = null;
@@ -180,7 +180,7 @@ abstract class CsvUnmarshaller {
             }
         }
     }
-// ignio - Change End
+// CSV - Change End
 
     /**
      * This class converts the CSV iterator into the proper result type.
