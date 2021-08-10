@@ -99,19 +99,31 @@ abstract class CsvUnmarshaller {
             super(format, dataFormat);
         }
 
+// csv - Change Start
         @Override
         public Object unmarshal(Exchange exchange, InputStream inputStream) throws IOException {
-            CSVParser parser
-                    = new CSVParser(new InputStreamReader(inputStream, ExchangeHelper.getCharsetName(exchange)), format);
+            CSVFormat _format = format;
+            CsvRecordConverter<?> _converter = converter;
+        	
+        	CsvDataFormat csvDataFormatOverride = exchange.getIn().getHeader("CSVDATAFORMAT_OVERRIDE", CsvDataFormat.class);
+        	if(csvDataFormatOverride != null){
+        		_format = getNewFormat(csvDataFormatOverride);
+        		
+        		_converter = getNewConverter(csvDataFormatOverride);
+        	}			
+            
+            CSVParser parser = new CSVParser(new InputStreamReader(inputStream, ExchangeHelper.getCharsetName(exchange)), _format);
             try {
-                if (dataFormat.isCaptureHeaderRecord()) {
+            	if (dataFormat.isCaptureHeaderRecord()) {
                     exchange.getMessage().setHeader(CsvConstants.HEADER_RECORD, parser.getHeaderNames());
                 }
-                return asList(parser.iterator(), converter);
+                
+                return asList(parser.iterator(), _converter);
             } finally {
                 IOHelper.close(parser);
             }
         }
+// csv - Change End
 
         private <T> List<T> asList(Iterator<CSVRecord> iterator, CsvRecordConverter<T> converter) {
             List<T> answer = new ArrayList<>();
@@ -132,13 +144,23 @@ abstract class CsvUnmarshaller {
             super(format, dataFormat);
         }
 
+// csv - Change Start
         @Override
         public Object unmarshal(Exchange exchange, InputStream inputStream) throws IOException {
             Reader reader = null;
             try {
+            	CSVFormat _format = format;
+                CsvRecordConverter<?> _converter = converter;
+            	
+            	CsvDataFormat csvDataFormatOverride = exchange.getIn().getHeader("CSVDATAFORMAT_OVERRIDE", CsvDataFormat.class);
+            	if(csvDataFormatOverride != null){
+            		_format = getNewFormat(csvDataFormatOverride);
+            		_converter = getNewConverter(csvDataFormatOverride);
+            	}
+            	
                 reader = new InputStreamReader(inputStream, ExchangeHelper.getCharsetName(exchange));
-                CSVParser parser = new CSVParser(reader, format);
-                CsvIterator answer = new CsvIterator(parser, converter);
+                CSVParser parser = new CSVParser(reader, _format);
+                CsvIterator answer = new CsvIterator(parser, _converter);
                 // add to UoW so we can close the iterator so it can release any resources
                 exchange.adapt(ExtendedExchange.class).addOnCompletion(new CsvUnmarshalOnCompletion(answer));
                 return answer;
@@ -148,6 +170,7 @@ abstract class CsvUnmarshaller {
             }
         }
     }
+// csv - Change End
 
     /**
      * This class converts the CSV iterator into the proper result type.
@@ -188,4 +211,24 @@ abstract class CsvUnmarshaller {
         }
     }
     //endregion
+    
+    // csv - Change Start
+    protected CSVFormat getNewFormat(CsvDataFormat dataFormat){
+    	CSVFormat _format = dataFormat.getActiveFormat();
+    	
+    	if (dataFormat.isUseMaps() && _format.getHeader() == null) {
+            _format = _format.withHeader();
+        }
+        // If we want to skip the header record it must automatic otherwise it's not working
+        if (_format.getSkipHeaderRecord() && _format.getHeader() == null) {
+            _format = _format.withHeader();
+        }
+        
+        return _format;
+    }
+    
+    protected CsvRecordConverter<?> getNewConverter(CsvDataFormat dataFormat){
+    	return extractConverter(dataFormat);
+    }
+	// csv - Change End
 }
